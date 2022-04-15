@@ -55,7 +55,6 @@ private:
 
 private:
 	std::vector<SpriteAnimation> anims;
-	std::vector<Frame> framesInProcess;
 
 	Timer timer;
 	float elapsedTime;

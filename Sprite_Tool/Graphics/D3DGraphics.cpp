@@ -7,52 +7,52 @@
 
 D3DGraphics::D3DGraphics(HWND hWnd, UINT wndWidth, UINT wndHeight)
 {
-	/* ìŠ¤ì™‘ ì²´ì¸, ë””ë°”ì´ìŠ¤, ì»¨í…ìŠ¤íŠ¸ ìƒì„±. */
+	/* ½º¿Ò Ã¼ÀÎ, µğ¹ÙÀÌ½º, ÄÁÅØ½ºÆ® »ı¼º. */
 	DXGI_SWAP_CHAIN_DESC swapChainDesc = {};
-	swapChainDesc.BufferDesc.Width = wndWidth;					  // backbuffer ë„ˆë¹„
-	swapChainDesc.BufferDesc.Height = wndHeight;				  // backbuffer ë†’ì´
-	swapChainDesc.BufferDesc.Format = DXGI_FORMAT_B8G8R8A8_UNORM; // í”½ì…€ í˜•ì‹
-	swapChainDesc.BufferDesc.RefreshRate.Numerator = 0;           // hzì˜ refresh rate ë¶„ì
-	swapChainDesc.BufferDesc.RefreshRate.Denominator = 0;         // hzì˜ refresh rate ë¶„ëª¨
-	swapChainDesc.BufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;                 // ì´ë¯¸ì§€ê°€ ì£¼ì–´ì§„ ëª¨ë‹ˆí„°ì˜ í•´ìƒë„ì— ë§ì¶”ê¸° ìœ„í•´ ì–´ë–»ê²Œ ëŠ˜ì—¬ì§€ëŠ”ì§€ì— ëŒ€í•œ ë°©ë²•ì„ ê°€ë¦¬í‚´.
-	swapChainDesc.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED; // surfaceì— ì´ë¯¸ì§€ë¥¼ ìƒì„±í•˜ê¸° ìœ„í•´ rasterê°€ ì‚¬ìš©í•˜ëŠ” ë°©ë²•ì„ ê°€ë¦¬í‚´.
-	swapChainDesc.SampleDesc.Count = 1;                           // ë‹¤ì¤‘ í‘œë³¸í™” ê°œìˆ˜
-	swapChainDesc.SampleDesc.Quality = 0;                         // ë‹¤ì¤‘ í‘œë³¸í™” í’ˆì§ˆ
-	swapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;  // ë²„í¼ë¥¼ ë Œë”íƒ€ê²Ÿ ìš©ë„ë¡œ ì‚¬ìš©.
-	swapChainDesc.BufferCount = 1;                                // 1ê°œì˜ back bufferë¥¼ ì‚¬ìš©. ê·¸ëŸ¬ë©´ front/back ìœ¼ë¡œ ì´ 2ê°œì˜ ë²„í¼ë¥¼ ì‚¬ìš©.
-	swapChainDesc.OutputWindow = hWnd;                            // ì¶œë ¥ ìœˆë„ìš°ë¥¼ ì§€ì •.
-	swapChainDesc.Windowed = TRUE;                                // ì°½ëª¨ë“œë¥¼ ì ìš©.
-	swapChainDesc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;          // IDXGISwapChain1::Present1 í˜¸ì¶œ í›„ì— ë””ìŠ¤í”Œë ˆì´ í™”ë©´ì— ìˆëŠ” í”½ì…€ë“¤ì„ ì–´ë–»ê²Œ ì²˜ë¦¬í•  ê²ƒì¸ê°€? ì—¬ê¸°ì„œëŠ” ê·¸ëƒ¥ ë²„ë¦¼.
-	swapChainDesc.Flags = 0;                                      // ì¶”ê°€ì ì¸ í”Œë˜ê·¸ë“¤.
+	swapChainDesc.BufferDesc.Width = wndWidth;					  // backbuffer ³Êºñ
+	swapChainDesc.BufferDesc.Height = wndHeight;				  // backbuffer ³ôÀÌ
+	swapChainDesc.BufferDesc.Format = DXGI_FORMAT_B8G8R8A8_UNORM; // ÇÈ¼¿ Çü½Ä
+	swapChainDesc.BufferDesc.RefreshRate.Numerator = 0;           // hzÀÇ refresh rate ºĞÀÚ
+	swapChainDesc.BufferDesc.RefreshRate.Denominator = 0;         // hzÀÇ refresh rate ºĞ¸ğ
+	swapChainDesc.BufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;                 // ÀÌ¹ÌÁö°¡ ÁÖ¾îÁø ¸ğ´ÏÅÍÀÇ ÇØ»óµµ¿¡ ¸ÂÃß±â À§ÇØ ¾î¶»°Ô ´Ã¿©Áö´ÂÁö¿¡ ´ëÇÑ ¹æ¹ıÀ» °¡¸®Å´.
+	swapChainDesc.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED; // surface¿¡ ÀÌ¹ÌÁö¸¦ »ı¼ºÇÏ±â À§ÇØ raster°¡ »ç¿ëÇÏ´Â ¹æ¹ıÀ» °¡¸®Å´.
+	swapChainDesc.SampleDesc.Count = 1;                           // ´ÙÁß Ç¥º»È­ °³¼ö
+	swapChainDesc.SampleDesc.Quality = 0;                         // ´ÙÁß Ç¥º»È­ Ç°Áú
+	swapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;  // ¹öÆÛ¸¦ ·»´õÅ¸°Ù ¿ëµµ·Î »ç¿ë.
+	swapChainDesc.BufferCount = 1;                                // 1°³ÀÇ back buffer¸¦ »ç¿ë. ±×·¯¸é front/back À¸·Î ÃÑ 2°³ÀÇ ¹öÆÛ¸¦ »ç¿ë.
+	swapChainDesc.OutputWindow = hWnd;                            // Ãâ·Â À©µµ¿ì¸¦ ÁöÁ¤.
+	swapChainDesc.Windowed = TRUE;                                // Ã¢¸ğµå¸¦ Àû¿ë.
+	swapChainDesc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;          // IDXGISwapChain1::Present1 È£Ãâ ÈÄ¿¡ µğ½ºÇÃ·¹ÀÌ È­¸é¿¡ ÀÖ´Â ÇÈ¼¿µéÀ» ¾î¶»°Ô Ã³¸®ÇÒ °ÍÀÎ°¡? ¿©±â¼­´Â ±×³É ¹ö¸².
+	swapChainDesc.Flags = 0;                                      // Ãß°¡ÀûÀÎ ÇÃ·¡±×µé.
 
 	HRESULT hr = S_OK;
 
-	// Direct2Dì™€ì˜ í˜¸í™˜ì„±ì„ ìœ„í•´ D3D11_CREATE_DEVICE_BGRA_SUPPORT í”Œë˜ê·¸ ì¶”ê°€.
+	// Direct2D¿ÍÀÇ È£È¯¼ºÀ» À§ÇØ D3D11_CREATE_DEVICE_BGRA_SUPPORT ÇÃ·¡±× Ãß°¡.
 	UINT creationFlags = D3D11_CREATE_DEVICE_BGRA_SUPPORT | D3D11_CREATE_DEVICE_DEBUG;
 
 	hr = D3D11CreateDeviceAndSwapChain(
-		nullptr,                  // IDXGIAdapterë¥¼ nullptrë¡œ ì„¤ì •í•´, ê¸°ë³¸ ì–´ëŒ‘í„°ë¥¼ ì„ íƒí•´ì¤Œ.
-		D3D_DRIVER_TYPE_HARDWARE, // ìƒì„±í•  ë“œë¼ì´ë²„ íƒ€ì….
-		nullptr,                  // ì†Œí”„íŠ¸ì›¨ì–´ ë˜ìŠ¤í„°ë¼ì´ì €ë¥¼ êµ¬í˜„í•˜ëŠ” DLLì— ëŒ€í•œ í•¸ë“¤.
+		nullptr,                  // IDXGIAdapter¸¦ nullptr·Î ¼³Á¤ÇØ, ±âº» ¾î´ğÅÍ¸¦ ¼±ÅÃÇØÁÜ.
+		D3D_DRIVER_TYPE_HARDWARE, // »ı¼ºÇÒ µå¶óÀÌ¹ö Å¸ÀÔ.
+		nullptr,                  // ¼ÒÇÁÆ®¿ş¾î ·¡½ºÅÍ¶óÀÌÀú¸¦ ±¸ÇöÇÏ´Â DLL¿¡ ´ëÇÑ ÇÚµé.
 		creationFlags,
-		nullptr,                  // D3D_FEATURE_LEVEL. D3D ì¥ì¹˜ í”¼ì³ ë ˆë²¨. nullptrë¡œ ì£¼ë©´, ê¸°ë³¸ 6ê°€ì§€ í”¼ì³ ë ˆë²¨ì„ ì‚¬ìš©.
-		0,                        // pFeatureLevelsì— ìˆëŠ” ì›ì†Œë“¤ì˜ ê°œìˆ˜.
-		D3D11_SDK_VERSION,        // SDK_VERSION. í”¼ì³ ë ˆë²¨ê³¼ëŠ” ë‹¤ë¦„.
-		&swapChainDesc,           // ìŠ¤ì™‘ ì²´ì¸ ì„œìˆ ì
-		&pSwap,                   // ìƒì„±ëœ ìŠ¤ì™‘ ì²´ì¸
-		&pDevice,                 // ìƒì„±ëœ ë””ë°”ì´ìŠ¤
-		nullptr,                  // *pFeatureLevel. ê°€ëŠ¥í•œ í”¼ì³ë ˆë²¨ì„ ë„£ì–´ì¤Œ. ì–´ë–¤ í”¼ì³ ë ˆë²¨ì´ ì§€ì›ë˜ëŠ”ì§€ ì•Œ í•„ìš” ì—†ìœ¼ë©´ ê·¸ëƒ¥ nullptr.
-		&pContext                 // ìƒì„±ëœ ë””ë°”ì´ìŠ¤ ì»¨í…ìŠ¤íŠ¸
+		nullptr,                  // D3D_FEATURE_LEVEL. D3D ÀåÄ¡ ÇÇÃÄ ·¹º§. nullptr·Î ÁÖ¸é, ±âº» 6°¡Áö ÇÇÃÄ ·¹º§À» »ç¿ë.
+		0,                        // pFeatureLevels¿¡ ÀÖ´Â ¿ø¼ÒµéÀÇ °³¼ö.
+		D3D11_SDK_VERSION,        // SDK_VERSION. ÇÇÃÄ ·¹º§°ú´Â ´Ù¸§.
+		&swapChainDesc,           // ½º¿Ò Ã¼ÀÎ ¼­¼úÀÚ
+		&pSwap,                   // »ı¼ºµÈ ½º¿Ò Ã¼ÀÎ
+		&pDevice,                 // »ı¼ºµÈ µğ¹ÙÀÌ½º
+		nullptr,                  // *pFeatureLevel. °¡´ÉÇÑ ÇÇÃÄ·¹º§À» ³Ö¾îÁÜ. ¾î¶² ÇÇÃÄ ·¹º§ÀÌ Áö¿øµÇ´ÂÁö ¾Ë ÇÊ¿ä ¾øÀ¸¸é ±×³É nullptr.
+		&pContext                 // »ı¼ºµÈ µğ¹ÙÀÌ½º ÄÁÅØ½ºÆ®
 	);
 	assert(hr == S_OK);
 
-	// Back buffer ìƒì„±.
+	// Back buffer »ı¼º.
 	CreateBackBuffer(wndWidth, wndHeight, BACKBUFFER::INIT);
 
-	// DPI ì–»ì–´ì˜¤ê¸°.
+	// DPI ¾ò¾î¿À±â.
 	wndDpi = GetDpiForWindow(hWnd);
 
-	// DX11 ë Œë”ë§ imgui ì´ˆê¸°í™”
+	// DX11 ·»´õ¸µ imgui ÃÊ±âÈ­
 	ImGui_ImplDX11_Init(pDevice, pContext);
 }
 
@@ -66,33 +66,33 @@ D3DGraphics::~D3DGraphics()
 	if (pDevice) pDevice->Release();
 }
 
-// ë°± ë²„í¼ ìƒì„± í•¨ìˆ˜. ë§ˆì§€ë§‰ ë§¤ê°œë³€ìˆ˜ì— ë”°ë¼ í¬ê¸° ì¬ì„¤ì • ì—¬ë¶€ë¥¼ ê²°ì •.
+// ¹é ¹öÆÛ »ı¼º ÇÔ¼ö. ¸¶Áö¸· ¸Å°³º¯¼ö¿¡ µû¶ó Å©±â Àç¼³Á¤ ¿©ºÎ¸¦ °áÁ¤.
 void D3DGraphics::CreateBackBuffer(UINT wndWidth, UINT wndHeight, BACKBUFFER mode)
 {
 	HRESULT hr = S_OK;
 
-	// D3DGraphics í´ë˜ìŠ¤ ì¸ìŠ¤í„´ìŠ¤ ìƒì„± ì´ì „ì´ë©´, ê·¸ëƒ¥ ë¦¬í„´.
+	// D3DGraphics Å¬·¡½º ÀÎ½ºÅÏ½º »ı¼º ÀÌÀüÀÌ¸é, ±×³É ¸®ÅÏ.
 	if (pSwap == nullptr) return;
 
-	// ë¦¬ì‚¬ì´ì§•ì¸ ê²½ìš° ê¸°ì¡´ ë²„í¼ì˜ í¬ê¸°ë¥¼ ìƒˆ í¬ê¸°ë¡œ ì„¤ì •í•´ì¤Œ.
+	// ¸®»çÀÌÂ¡ÀÎ °æ¿ì ±âÁ¸ ¹öÆÛÀÇ Å©±â¸¦ »õ Å©±â·Î ¼³Á¤ÇØÁÜ.
 	if (mode == BACKBUFFER::RESIZE)
 	{
 		hr = pSwap->ResizeBuffers(0, wndWidth, wndHeight, DXGI_FORMAT_B8G8R8A8_UNORM, 0);
 		assert(hr == S_OK);
 	}
 
-	/* ë Œë” íƒ€ê²Ÿ ë·° ìƒì„±. */
+	/* ·»´õ Å¸°Ù ºä »ı¼º. */
 	ID3D11Texture2D* pBackBuffer = nullptr;
 	pSwap->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<void**>(&pBackBuffer));
 	if (pBackBuffer != nullptr)
 	{
 		hr = pDevice->CreateRenderTargetView(pBackBuffer, nullptr, &pTarget);
 		assert(hr == S_OK);
+
+		pBackBuffer->Release();
 	}
 
-	pBackBuffer->Release();
-	
-	/* ë·° í¬íŠ¸ ìƒì„± ë° ë°”ì¸ë”©. */
+	/* ºä Æ÷Æ® »ı¼º ¹× ¹ÙÀÎµù. */
 	{
 		D3D11_VIEWPORT viewPort;
 		ZeroMemory(&viewPort, sizeof(D3D11_VIEWPORT));
@@ -110,19 +110,20 @@ void D3DGraphics::CreateBackBuffer(UINT wndWidth, UINT wndHeight, BACKBUFFER mod
 void D3DGraphics::DeleteBackBuffer()
 {
 	if (pTarget) pTarget->Release();
+	pTarget = nullptr;
 }
 
 void D3DGraphics::BeginFrame()
 {
-	pContext->OMSetRenderTargets(1u, &pTarget, nullptr); //	ë Œë” íƒ€ê²Ÿ ë·° ë°”ì¸ë”©.
+	pContext->OMSetRenderTargets(1u, &pTarget, nullptr); //	·»´õ Å¸°Ù ºä ¹ÙÀÎµù.
 
-	ImGui_ImplDX11_NewFrame(); // ìƒˆ í”„ë ˆì„ì„ ê·¸ë ¤ì£¼ê¸° ì „ì— í˜¸ì¶œí•´ ì£¼ì–´ì•¼ í•¨.
+	ImGui_ImplDX11_NewFrame(); // »õ ÇÁ·¹ÀÓÀ» ±×·ÁÁÖ±â Àü¿¡ È£ÃâÇØ ÁÖ¾î¾ß ÇÔ.
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
 
 	const float color[] = { 163.f/255.f,204.f/255.f,163.f/255.f,0.5f };
 
-	pContext->ClearRenderTargetView(pTarget, color);	 // ë Œë” íƒ€ê²Ÿ ë·°ë¥¼ ì´ˆê¸°í™”.
+	pContext->ClearRenderTargetView(pTarget, color);	 // ·»´õ Å¸°Ù ºä¸¦ ÃÊ±âÈ­.
 }
 
 void D3DGraphics::EndFrame()
@@ -153,6 +154,8 @@ void D3DGraphics::MakeTextureForAnimation(UINT width, UINT height, UINT stride)
 		}
 	}
 
+	HRESULT hr = S_OK;
+
 	// Create texture
 	D3D11_TEXTURE2D_DESC desc;
 	ZeroMemory(&desc, sizeof(desc));
@@ -162,15 +165,16 @@ void D3DGraphics::MakeTextureForAnimation(UINT width, UINT height, UINT stride)
 	desc.ArraySize = 1;
 	desc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
 	desc.SampleDesc.Count = 1;
-	desc.Usage = D3D11_USAGE_DYNAMIC;             // í…ìŠ¤ì³ ìì› ì—…ë°ì´íŠ¸ë¥¼ ìœ„í•œ ë™ì  ìì› ì„¤ì •.
+	desc.Usage = D3D11_USAGE_DYNAMIC;             // ÅØ½ºÃÄ ÀÚ¿ø ¾÷µ¥ÀÌÆ®¸¦ À§ÇÑ µ¿Àû ÀÚ¿ø ¼³Á¤.
 	desc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
-	desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE; // í…ìŠ¤ì³ ìì› ì—…ë°ì´íŠ¸ë¥¼ ìœ„í•œ CPU ì ‘ê·¼ í—ˆìš© ì„¤ì •.
+	desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE; // ÅØ½ºÃÄ ÀÚ¿ø ¾÷µ¥ÀÌÆ®¸¦ À§ÇÑ CPU Á¢±Ù Çã¿ë ¼³Á¤.
 
 	D3D11_SUBRESOURCE_DATA subResource;
 	subResource.pSysMem = pData;
 	subResource.SysMemPitch = width * sizeof(DWORD);
 	subResource.SysMemSlicePitch = 0;
-	pDevice->CreateTexture2D(&desc, &subResource, &pTexture);
+	hr = pDevice->CreateTexture2D(&desc, &subResource, &pTexture);
+	assert(hr == S_OK);
 
 	D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc;
 	ZeroMemory(&srvDesc, sizeof(srvDesc));
@@ -180,7 +184,8 @@ void D3DGraphics::MakeTextureForAnimation(UINT width, UINT height, UINT stride)
 	srvDesc.Texture2D.MostDetailedMip = 0;
 	if (pTexture != nullptr)
 	{
-		pDevice->CreateShaderResourceView(pTexture, &srvDesc, &pSrv);
+		hr = pDevice->CreateShaderResourceView(pTexture, &srvDesc, &pSrv);
+		assert(hr == S_OK);
 	}
 
 	delete [] pData;
@@ -192,10 +197,10 @@ void D3DGraphics::UpdateTextureForAnimation(const Frame& frame, SpriteSheet* pSp
 
 	pSpriteSheet->Lock();
 
-	// ìŠ¤í”„ë¼ì´íŠ¸ ì‹œíŠ¸ ì´ë¯¸ì§€ë¥¼ ë‹´ê³  ìˆëŠ” IWICBitmapì˜ í”½ì…€ ë°ì´í„°ì— ì ‘ê·¼í•˜ê¸° ìœ„í•œ í¬ì¸í„°ë¥¼ ê°€ì ¸ì˜´.
+	// ½ºÇÁ¶óÀÌÆ® ½ÃÆ® ÀÌ¹ÌÁö¸¦ ´ã°í ÀÖ´Â IWICBitmapÀÇ ÇÈ¼¿ µ¥ÀÌÅÍ¿¡ Á¢±ÙÇÏ±â À§ÇÑ Æ÷ÀÎÅÍ¸¦ °¡Á®¿È.
 	DWORD *pSheet = (DWORD*)pSpriteSheet->GetPixelDataPointer();
 
-	// GPUì— ë°”ì¸ë”©ëœ í…ìŠ¤ì³ ìì›ì— ì ‘ê·¼í•˜ê¸° ìœ„í•´ lock
+	// GPU¿¡ ¹ÙÀÎµùµÈ ÅØ½ºÃÄ ÀÚ¿ø¿¡ Á¢±ÙÇÏ±â À§ÇØ lock
 	hr = pContext->Map(pTexture, 0u, D3D11_MAP_WRITE_DISCARD, 0u, &mappedSubResource);
 	assert(hr == S_OK);
 
@@ -206,12 +211,12 @@ void D3DGraphics::UpdateTextureForAnimation(const Frame& frame, SpriteSheet* pSp
 	DWORD* pDst = reinterpret_cast<DWORD*>(mappedSubResource.pData);
 	const size_t dstPitch = mappedSubResource.RowPitch / sizeof(DWORD);
 
-	// ì¼ë‹¨ ì• ë‹ˆë©”ì´ì…˜ í…ìŠ¤ì³ ì´ë¯¸ì§€ í¬ê¸°ë§Œí¼ì˜ ì˜ì—­ì„ íˆ¬ëª…ìƒ‰ìœ¼ë¡œ ì´ˆê¸°í™”.
+	// ÀÏ´Ü ¾Ö´Ï¸ŞÀÌ¼Ç ÅØ½ºÃÄ ÀÌ¹ÌÁö Å©±â¸¸Å­ÀÇ ¿µ¿ªÀ» Åõ¸í»öÀ¸·Î ÃÊ±âÈ­.
 	for (int y = 0; y < animTextureHeight; ++y)
 		for (int x = 0; x < animTextureWidth; ++x)
 			pDst[y * dstPitch + x] = 0x0fffffff;
 
-	// ì„ íƒí•œ í”„ë ˆì„ ë°•ìŠ¤ í¬ê¸°ê°€ 0ì´ìƒ ì¸ì§€ ì²´í¬.
+	// ¼±ÅÃÇÑ ÇÁ·¹ÀÓ ¹Ú½º Å©±â°¡ 0ÀÌ»ó ÀÎÁö Ã¼Å©.
 	int frameheight = frame.bottom - frame.top;
 	int framewidth = frame.right - frame.left;
 
@@ -222,7 +227,7 @@ void D3DGraphics::UpdateTextureForAnimation(const Frame& frame, SpriteSheet* pSp
 		return;
 	}
 
-	// frame ì˜ì—­ì•ˆì— ë“¤ì–´ì˜¤ëŠ” í”½ì…€ì„ GPUì— ì €ì¥ëœ í…ìŠ¤ì³ ìì›ì— ì¨ì£¼ê¸°.
+	// frame ¿µ¿ª¾È¿¡ µé¾î¿À´Â ÇÈ¼¿À» GPU¿¡ ÀúÀåµÈ ÅØ½ºÃÄ ÀÚ¿ø¿¡ ½áÁÖ±â.
 	int displayOffsetX = animTextureWidth / 2;
 	int pivotOffsetX = frame.originX;
 	displayOffsetX -= pivotOffsetX;

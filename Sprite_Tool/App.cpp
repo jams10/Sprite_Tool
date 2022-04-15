@@ -22,7 +22,6 @@ App::App(_In_ HINSTANCE hInstance)
 
 {
     anims.reserve(20);
-    framesInProcess.reserve(20);
 }
 
 App::~App()

@@ -28,6 +28,8 @@ void ImUI_ColorKeyAndMouse::Run()
 
 		ImGui::Text("Select Box Coord : start(%d, %d) / end(%d, %d)", selectBox.left, selectBox.top, selectBox.right, selectBox.bottom);
 		ImGui::Text("Select Pivot Coord : (%d, %d)", pivotPoint.x, pivotPoint.y);
+
+		ImGui::Text(WideToMultiU8(L"컬러 키 모드 : Q / 프레임 영역 선택 : W / 피봇 선택 : E / 콜리젼 영역 선택 : R").c_str());
 	}
 	ImGui::End();
 }

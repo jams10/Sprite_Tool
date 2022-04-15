@@ -34,10 +34,10 @@ public:
 	int GetAnimTextureHeight() { return animTextureHeight; }
 
 private:
-	IDXGISwapChain* pSwap;
-	ID3D11Device* pDevice;
-	ID3D11DeviceContext* pContext;
-	ID3D11RenderTargetView* pTarget;
+	IDXGISwapChain* pSwap = nullptr;
+	ID3D11Device* pDevice = nullptr;
+	ID3D11DeviceContext* pContext = nullptr;
+	ID3D11RenderTargetView* pTarget = nullptr;
 	ID3D11Texture2D* pTexture = nullptr;
 	ID3D11ShaderResourceView* pSrv = nullptr;
 	D3D11_MAPPED_SUBRESOURCE mappedSubResource;
