@@ -1,6 +1,8 @@
 #include "D3DGraphics.h"
 #include "../imgui/imgui_impl_win32.h"
 #include "../imgui/imgui_impl_dx11.h"
+#include "../Sprite/SpriteSheet.h"
+#include "../SpriteAnimation.h"
 #include <assert.h>
 
 D3DGraphics::D3DGraphics(HWND hWnd, UINT wndWidth, UINT wndHeight)
@@ -56,6 +58,7 @@ D3DGraphics::D3DGraphics(HWND hWnd, UINT wndWidth, UINT wndHeight)
 
 D3DGraphics::~D3DGraphics()
 {
+	if (pTexture) pTexture->Release();
 	if (pTarget) pTarget->Release();
 	if (pSwap) pSwap->Release();
 	if (pContext) pContext->Release();
@@ -130,4 +133,116 @@ void D3DGraphics::EndFrame()
 	ImGui::RenderPlatformWindowsDefault();
 
 	pSwap->Present(0, 0);
+}
+
+void D3DGraphics::MakeTextureForAnimation(UINT width, UINT height, UINT stride)
+{
+	if (pTexture != nullptr) pTexture->Release();
+
+	animTextureWidth = width;
+	animTextureHeight = height;
+
+	DWORD* pData = new DWORD[width * height];
+
+	for (int y = 0; y < height; ++y)
+	{
+		for (int x = 0; x < width; ++x)
+		{
+			pData[y * width + x] = 0xffffffff;
+		}
+	}
+
+	// Create texture
+	D3D11_TEXTURE2D_DESC desc;
+	ZeroMemory(&desc, sizeof(desc));
+	desc.Width = width;
+	desc.Height = height;
+	desc.MipLevels = 1;
+	desc.ArraySize = 1;
+	desc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
+	desc.SampleDesc.Count = 1;
+	desc.Usage = D3D11_USAGE_DYNAMIC;             // 텍스쳐 자원 업데이트를 위한 동적 자원 설정.
+	desc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
+	desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE; // 텍스쳐 자원 업데이트를 위한 CPU 접근 허용 설정.
+
+	D3D11_SUBRESOURCE_DATA subResource;
+	subResource.pSysMem = pData;
+	subResource.SysMemPitch = width * sizeof(DWORD);
+	subResource.SysMemSlicePitch = 0;
+	pDevice->CreateTexture2D(&desc, &subResource, &pTexture);
+
+	D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc;
+	ZeroMemory(&srvDesc, sizeof(srvDesc));
+	srvDesc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
+	srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
+	srvDesc.Texture2D.MipLevels = desc.MipLevels;
+	srvDesc.Texture2D.MostDetailedMip = 0;
+	if (pTexture != nullptr)
+	{
+		pDevice->CreateShaderResourceView(pTexture, &srvDesc, &pSrv);
+	}
+
+	delete [] pData;
+}
+
+void D3DGraphics::UpdateTextureForAnimation(const Frame& frame, SpriteSheet* pSpriteSheet, float heightOffset)
+{
+	HRESULT hr = S_OK;
+
+	pSpriteSheet->Lock();
+
+	// 스프라이트 시트 이미지를 담고 있는 IWICBitmap의 픽셀 데이터에 접근하기 위한 포인터를 가져옴.
+	DWORD *pSheet = (DWORD*)pSpriteSheet->GetPixelDataPointer();
+
+	// GPU에 바인딩된 텍스쳐 자원에 접근하기 위해 lock
+	hr = pContext->Map(pTexture, 0u, D3D11_MAP_WRITE_DISCARD, 0u, &mappedSubResource);
+	assert(hr == S_OK);
+
+	UINT stride = pSpriteSheet->GetStride();
+	DWORD colorKey = pSpriteSheet->GetColorKey();
+	D2D1_SIZE_F spriteSheetSize = pSpriteSheet->GetBitmapSize();
+
+	DWORD* pDst = reinterpret_cast<DWORD*>(mappedSubResource.pData);
+	const size_t dstPitch = mappedSubResource.RowPitch / sizeof(DWORD);
+
+	// 일단 애니메이션 텍스쳐 이미지 크기만큼의 영역을 투명색으로 초기화.
+	for (int y = 0; y < animTextureHeight; ++y)
+		for (int x = 0; x < animTextureWidth; ++x)
+			pDst[y * dstPitch + x] = 0x0fffffff;
+
+	// 선택한 프레임 박스 크기가 0이상 인지 체크.
+	int frameheight = frame.bottom - frame.top;
+	int framewidth = frame.right - frame.left;
+
+	if (frameheight <= 0 && framewidth <= 0)
+	{
+		pContext->Unmap(pTexture, 0u);
+		pSpriteSheet->ReleaseLock();
+		return;
+	}
+
+	// frame 영역안에 들어오는 픽셀을 GPU에 저장된 텍스쳐 자원에 써주기.
+	int displayOffsetX = animTextureWidth / 2;
+	int pivotOffsetX = frame.originX;
+	displayOffsetX -= pivotOffsetX;
+
+	int displayOffsetY = animTextureHeight * heightOffset - frame.originY;
+
+	for (int y = 0; y < animTextureHeight - displayOffsetY; ++y)
+	{
+		for (int x = displayOffsetX; x < animTextureWidth; ++x)
+		{
+			if (y + frame.top <= frame.bottom && x + frame.left - displayOffsetX <= frame.right)
+			{
+				int sheetOffset = (y + frame.top) * static_cast<int>(spriteSheetSize.width) +
+								   x + frame.left - displayOffsetX;
+				if (pSheet[sheetOffset] != colorKey)
+					pDst[(y + displayOffsetY)*dstPitch + x] = pSheet[sheetOffset];
+			}
+		}
+	}
+
+	pContext->Unmap(pTexture, 0u);
+
+	pSpriteSheet->ReleaseLock();
 }

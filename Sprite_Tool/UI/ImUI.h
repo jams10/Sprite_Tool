@@ -4,6 +4,10 @@
 #include "../imgui/imgui.h"
 #include "../StringEncode.h"
 #include <strsafe.h>
+#include <atlstr.h>
+#include <string>
+
+using namespace std::string_literals;
 
 class ImUI
 {

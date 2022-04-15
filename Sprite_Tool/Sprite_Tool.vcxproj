@@ -160,9 +160,11 @@
     <ClInclude Include="SpriteAnimation.h" />
     <ClInclude Include="Sprite\SpriteSheet.h" />
     <ClInclude Include="StringEncode.h" />
+    <ClInclude Include="Timer.h" />
     <ClInclude Include="UI\ImUI.h" />
     <ClInclude Include="UI\ImUI_ColorKeyAndMouse.h" />
     <ClInclude Include="UI\ImUI_CurretAnimInfo.h" />
+    <ClInclude Include="UI\ImUI_DisplayAnim.h" />
     <ClInclude Include="UI\ImUI_File.h" />
     <ClInclude Include="UI\UIHeaders.h" />
     <ClInclude Include="Window\Window.h" />
@@ -183,9 +185,11 @@
     <ClCompile Include="Manager\ImguiManager.cpp" />
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="Sprite\SpriteSheet.cpp" />
+    <ClCompile Include="Timer.cpp" />
     <ClCompile Include="UI\ImUI.cpp" />
     <ClCompile Include="UI\ImUI_ColorKeyAndMouse.cpp" />
     <ClCompile Include="UI\ImUI_CurretAnimInfo.cpp" />
+    <ClCompile Include="UI\ImUI_DisplayAnim.cpp" />
     <ClCompile Include="UI\ImUI_File.cpp" />
     <ClCompile Include="Window\Window.cpp" />
     <ClCompile Include="WinMain.cpp" />

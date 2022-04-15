@@ -4,6 +4,7 @@
 
 class SpriteSheet;
 class Window;
+struct SpriteAnimation;
 class ImageFileManager
 {
 public:
@@ -11,5 +12,6 @@ public:
 	~ImageFileManager();
 
 	SpriteSheet* GetSheetFromFile(Window& wnd, wchar_t* fileName);
+	void SaveAnimationFile(const SpriteAnimation& animation, wchar_t* fileName);
 };
 

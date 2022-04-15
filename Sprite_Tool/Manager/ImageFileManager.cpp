@@ -1,6 +1,8 @@
 #include "ImageFileManager.h"
 #include "../Sprite/SpriteSheet.h"
 #include "../Window/Window.h"
+#include "../SpriteAnimation.h"
+#include <fstream>
 #include <assert.h>
 
 ImageFileManager::ImageFileManager()
@@ -101,6 +103,47 @@ SpriteSheet* ImageFileManager::GetSheetFromFile(Window& wnd, wchar_t* fileName)
 	if (wicFactory) wicFactory->Release();
 
 	return pSprite;
+}
+
+void ImageFileManager::SaveAnimationFile(const SpriteAnimation& animation, wchar_t* fileName)
+{
+	std::wofstream animFile(fileName);
+	animFile.imbue(std::locale("Korean"));
+
+	// 애니메이션이 참조하는 파일 이름.
+	animFile << animation.imageSourceName << '\n';
+	// 애니메이션 이름.
+	animFile << animation.animationName << '\n';
+	// 애니메이션 안에 들어있는 프레임의 개수.
+	animFile << animation.nFrames << '\n';
+	// 컬러 키 값
+	animFile << animation.colorKey << '\n';
+	
+	for (int i = 0; i < animation.nFrames; ++i)
+	{
+		// 프레임 기준점.
+		animFile << animation.frames[i].originX << ' ' << animation.frames[i].originY << '\n';
+		// 프레임 영역.
+		animFile <<
+			animation.frames[i].left << ' ' <<
+			animation.frames[i].top << ' ' <<
+			animation.frames[i].right << ' ' <<
+			animation.frames[i].bottom << '\n';
+
+		// 콜리젼 개수.
+		animFile << animation.frames[i].nCollisions << '\n';
+		// 콜리젼들 저장.
+		for (int j = 0; j < animation.frames[i].nCollisions; ++j)
+		{
+			animFile << 
+				animation.frames[i].collisions[j].left << ' ' <<
+				animation.frames[i].collisions[j].top << ' ' <<
+				animation.frames[i].collisions[j].right << ' ' <<
+				animation.frames[i].collisions[j].bottom << '\n';
+		}
+	}
+
+	animFile.close();
 }
 
 

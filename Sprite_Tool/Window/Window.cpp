@@ -155,10 +155,12 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		if (bColorKeySelectMode) colorKeySelectMouse.SetCurrentCoord(LOWORD(lParam), HIWORD(lParam));
 		if (bBoundarySelectMode) boundarySelectMouse.SetLastCoord(LOWORD(lParam), HIWORD(lParam));
 		if (bPivotSelectMode) pivotSelectMouse.SetCurrentCoord(LOWORD(lParam), HIWORD(lParam));
+		if (bCollisionSelectMode)collisionSelectMouse.SetLastCoord(LOWORD(lParam), HIWORD(lParam));
 
 		colorKeySelectMouse.isClicked = true;
 		boundarySelectMouse.isClicked = true;
 		pivotSelectMouse.isClicked = true;
+		collisionSelectMouse.isClicked = true;
 	}
 	break;
 	case WM_LBUTTONUP:
@@ -166,13 +168,16 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		if (bColorKeySelectMode) colorKeySelectMouse.SetCurrentCoord(LOWORD(lParam), HIWORD(lParam));
 		if (bBoundarySelectMode) boundarySelectMouse.SetCurrentCoord(LOWORD(lParam), HIWORD(lParam));
 		if (bPivotSelectMode) pivotSelectMouse.SetCurrentCoord(LOWORD(lParam), HIWORD(lParam));
+		if (bCollisionSelectMode) collisionSelectMouse.SetCurrentCoord(LOWORD(lParam), HIWORD(lParam));
 
 		if (bBoundarySelectMode && boundarySelectMouse.isClicked) bAddFrame = true;
 		if (bPivotSelectMode && pivotSelectMouse.isClicked) bAddPivot = true;
+		if (bCollisionSelectMode && collisionSelectMouse.isClicked) bAddCollision = true;
 
 		colorKeySelectMouse.isClicked = false;
 		boundarySelectMouse.isClicked = false;
 		pivotSelectMouse.isClicked = false;
+		collisionSelectMouse.isClicked = false;
 	}
 	break;
 	case WM_MOUSEMOVE:
@@ -182,6 +187,7 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		if (bColorKeySelectMode) colorKeySelectMouse.SetCurrentCoord(LOWORD(lParam), HIWORD(lParam));
 		if (bBoundarySelectMode) boundarySelectMouse.SetCurrentCoord(LOWORD(lParam), HIWORD(lParam));
 		if (bPivotSelectMode) pivotSelectMouse.SetCurrentCoord(LOWORD(lParam), HIWORD(lParam));
+		if (bCollisionSelectMode) collisionSelectMouse.SetCurrentCoord(LOWORD(lParam), HIWORD(lParam));
 	}
 	break;
 	case WM_MOUSEWHEEL:
@@ -194,19 +200,22 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 #pragma region Keyboard
 	case WM_KEYDOWN:
 	{	
-		// ZŰ
-		if (wParam == 0x5A) bColorKeySelectMode = true;
-		// CŰ
-		if (wParam == 0x43) bBoundarySelectMode = true;
-		// VŰ
-		if (wParam == 0x56) bPivotSelectMode = true;
+		// QŰ
+		if (wParam == 0x51 && !bBoundarySelectMode && !bPivotSelectMode && !bCollisionSelectMode) bColorKeySelectMode = true;
+		// WŰ
+		if (wParam == 0x57 && !bColorKeySelectMode && !bPivotSelectMode && !bCollisionSelectMode) bBoundarySelectMode = true;
+		// EŰ
+		if (wParam == 0x45 && !bColorKeySelectMode && !bBoundarySelectMode && !bCollisionSelectMode) bPivotSelectMode = true;
+		// RŰ
+		if (wParam == 0x52 && !bColorKeySelectMode && !bBoundarySelectMode && !bPivotSelectMode) bCollisionSelectMode = true;
 	}
 	break;
 	case WM_KEYUP:
 	{
-		if (wParam == 0x5A) bColorKeySelectMode = false;
-		if (wParam == 0x43) bBoundarySelectMode = false;
-		if (wParam == 0x56) bPivotSelectMode = false;
+		if (wParam == 0x51) bColorKeySelectMode = false;
+		if (wParam == 0x57) bBoundarySelectMode = false;
+		if (wParam == 0x45) bPivotSelectMode = false;
+		if (wParam == 0x52) bCollisionSelectMode = false;
 	}
 	break;
 #pragma endregion

@@ -9,6 +9,11 @@ SpriteSheet::SpriteSheet(IWICBitmap* pIBitmap, ID2D1Bitmap* pD2DBitmap)
 	pData(nullptr),
 	colorKey(0xffffffff)
 {
+	Lock();
+
+	pILock->GetStride(&stride);
+
+	ReleaseLock();
 }
 
 SpriteSheet::~SpriteSheet()
@@ -73,6 +78,11 @@ DWORD SpriteSheet::GetPixelColor(UINT x, UINT y)
 	//	assert(pixelFormat == GUID_WICPixelFormat32bppPBGRA);
 	//	return color; // 픽셀 포맷 체크. only png
 	//}
+
+	if (x < 0) x = 0;
+	if (y < 0) y = 0;
+	if (x > GetBitmapSize().width) x = GetBitmapSize().width - 1;
+	if (y > GetBitmapSize().height) x = GetBitmapSize().height - 1;
 
 	HRESULT hr = S_OK;
 	UINT stride;

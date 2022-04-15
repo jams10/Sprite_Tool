@@ -8,9 +8,13 @@ public:
 	ImUI_CurretAnimInfo(Window& wnd);
 	~ImUI_CurretAnimInfo() override {}
 
-	void Run(const std::vector<Frame> frames);
+	void Run(std::vector<SpriteAnimation>& anims, wchar_t* fileName);
 
 public:
 	int currentFrameIndex;
+	int currentAnimIndex;
+	char buf[128] = "";
+	bool bAddAnimation = false;
+	bool is_selected = false;
 };
 

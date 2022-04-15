@@ -19,3 +19,18 @@ static std::string WideToMultiU8(const std::wstring& src)
 	WideCharToMultiByte(CP_UTF8, 0, &src[0], -1, &dest[0], len, NULL, NULL);
 	return dest;
 }
+
+static std::wstring MultiU8ToWide(const std::string& src)
+{
+	int len = MultiByteToWideChar(
+		CP_UTF8,
+		0,
+		&src[0],
+		-1,
+		NULL,
+		NULL
+	);
+	std::wstring dest(len, 0);
+	MultiByteToWideChar(CP_UTF8, 0, &src[0], -1, &dest[0], len);
+	return dest;
+}

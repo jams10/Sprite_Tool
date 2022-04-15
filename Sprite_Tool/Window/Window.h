@@ -40,6 +40,7 @@ public:
 	Mouse colorKeySelectMouse;
 	Mouse boundarySelectMouse;
 	Mouse pivotSelectMouse;
+	Mouse collisionSelectMouse;
 	
 	float scale = 1.f;
 
@@ -49,5 +50,7 @@ public:
 	bool bAddFrame = false;
 	bool bPivotSelectMode = false;
 	bool bAddPivot = false;
+	bool bCollisionSelectMode = false;
+	bool bAddCollision = false;
 };
 

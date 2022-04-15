@@ -107,6 +107,12 @@
     <ClInclude Include="UI\ImUI_CurretAnimInfo.h">
       <Filter>UI</Filter>
     </ClInclude>
+    <ClInclude Include="UI\ImUI_DisplayAnim.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>Main</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Graphics\D3DGraphics.cpp">
@@ -168,6 +174,12 @@
     </ClCompile>
     <ClCompile Include="UI\ImUI_CurretAnimInfo.cpp">
       <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\ImUI_DisplayAnim.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>Main</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -13,6 +13,8 @@ void ImUI_ColorKeyAndMouse::Run()
 {
 	ImGui::Begin("Color Key & Mouse Info", &showUI);
 	{
+		ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+
 		ImGui::Text("Color Key Select Mode : %s", wnd.bColorKeySelectMode ? "ON" : "OFF"); ImGui::SameLine();
 		ImGui::PushStyleColor(ImGuiCol_Button,
 			ImVec4{ ((colorKey & 0x00ff0000) >> 16) / 255.0f,
